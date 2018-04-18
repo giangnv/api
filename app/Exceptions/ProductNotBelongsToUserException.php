@@ -11,7 +11,7 @@ class ProductNotBelongsToUserException extends Exception
     public function render()
     {
         return response()->json([
-            'This product not belongs to user'
+            'errors' => 'This product not belongs to user'
         ]);
     }
 }

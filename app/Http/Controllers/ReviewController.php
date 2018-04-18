@@ -9,9 +9,15 @@ use Illuminate\Http\Request;
 use App\Model\Product;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\ReviewRequest;
+use App\Exceptions\ReviewNotBelongsToProductException;
+use App\Traits\ProductTrait;
+use App\Traits\ReviewTrait;
 
 class ReviewController extends Controller
 {
+    use ProductTrait;
+    use ReviewTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -79,9 +85,15 @@ class ReviewController extends Controller
      * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Review $review)
+    public function update(Request $request, Product $product, Review $review)
     {
-        //
+        $this->ProductUserCheck($product);
+        $this->ProductReviewCheck($product, $review);
+        $review->update($request->all());
+
+        return response([
+            'data' => new ReviewResource($review),
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -90,8 +102,13 @@ class ReviewController extends Controller
      * @param  \App\Model\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Review $review)
+    public function destroy(Product $product, Review $review)
     {
-        //
+        $this->ProductUserCheck($product);
+        $this->ProductReviewCheck($product, $review);
+        $review->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);
     }
+
 }

@@ -10,9 +10,12 @@ use App\Http\Resources\Product\ProductCollection;
 use Symfony\Component\HttpFoundation\Response;
 use Auth;
 use App\Exceptions\ProductNotBelongsToUserException;
+use App\Traits\ProductTrait;
 
 class ProductController extends Controller
 {
+
+    use ProductTrait;
 
     public function __construct()
     {
@@ -128,16 +131,4 @@ class ProductController extends Controller
         );
     }
 
-    /**
-     * Check product is belong to user.
-     *
-     * @param  \App\Model\Product  $product
-     * @throw ProductNotBelongsToUserException
-     */
-    protected function ProductUserCheck($product)
-    {
-        if (Auth::id() !== $product->user_id) {
-            throw new ProductNotBelongsToUserException;
-        }
-    }
 }
