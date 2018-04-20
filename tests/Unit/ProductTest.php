@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class ProductTest extends TestCase
 {
-
     protected function setUp()
     {
         parent::setUp();
@@ -141,7 +140,6 @@ class ProductTest extends TestCase
         $response->assertJson([
             'errors' => 'This product not belongs to user',
         ]);
-
     }
 
     public function testProductDeletedWithNotBelongsToUser()
