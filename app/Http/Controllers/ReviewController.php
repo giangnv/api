@@ -18,7 +18,8 @@ class ReviewController extends Controller
     use ProductTrait;
     use ReviewTrait;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth:api')->except('index', 'show');
     }
 
@@ -114,5 +115,4 @@ class ReviewController extends Controller
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
-
 }

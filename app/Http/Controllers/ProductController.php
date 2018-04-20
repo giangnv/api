@@ -14,7 +14,6 @@ use App\Traits\ProductTrait;
 
 class ProductController extends Controller
 {
-
     use ProductTrait;
 
     public function __construct()
@@ -64,9 +63,9 @@ class ProductController extends Controller
         return response(
             [
                 'data' => new ProductResource($product),
-            ]
-            , Response::HTTP_CREATED);
-
+            ],
+            Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -111,7 +110,8 @@ class ProductController extends Controller
             [
                 'data' => new ProductResource($product),
             ],
-        Response::HTTP_OK);
+            Response::HTTP_OK
+        );
     }
 
     /**
@@ -127,8 +127,8 @@ class ProductController extends Controller
         $product->delete();
 
         return response(
-            null, Response::HTTP_NO_CONTENT
+            null,
+            Response::HTTP_NO_CONTENT
         );
     }
-
 }
