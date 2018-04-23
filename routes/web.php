@@ -33,3 +33,16 @@ Route::get('send_test_email', function () {
 
 
 Route::resource('categories', 'CategoryController');
+
+
+Route::resource('nominations', 'NominationController');
+
+Route::resource('nominationUsers', 'NominationUserController');
+
+Route::resource('roles', 'RoleController');
+
+Route::resource('settings', 'SettingController');
+
+Route::resource('users', 'UserController');
+
+Route::resource('votings', 'VotingController');
