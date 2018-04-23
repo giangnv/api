@@ -22,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback')->name('facebook-callback');
 
-Route::get('login/github', 'Auth\GithubController@redirectToProvider');
+Route::get('login/github', 'Auth\GithubController@redirectToProvider')->name('github-login');
 Route::get('login/github/callback', 'Auth\GithubController@handleProviderCallback')->name('github-callback');
 
 Route::get('send_test_email', function () {
