@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
+use App\User;
+use Auth;
 
-class LoginController extends Controller
+class GithubController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +48,7 @@ class LoginController extends Controller
      */
     public function redirectToProvider()
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('github')->redirect();
     }
 
     /**
@@ -55,8 +58,30 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('facebook')->user();
+        $userSocial = Socialite::driver('github')->user();
 
-        $user->token;
+        // dd($userSocial, $userSocial->user);
+        
+        $user = User::where('email', $userSocial['email'])->first();
+        if ($user) {
+            if (Auth::loginUsingId($user->id)) {
+                return redirect()->route('home');
+            }
+        }
+
+        // else sign up this user
+        $userSignup = User::create([
+            'name' => $userSocial->nickname,
+            'email' => $userSocial->user['email'],
+            'password' => bcrypt('1234'),
+            'avatar' => $userSocial->avatar,
+            'github_profile' => $userSocial->user['html_url'],
+        ]);
+
+        if ($userSignup) {
+            if (Auth::loginUsingId($userSignup->id)) {
+                return redirect()->route('home');
+            }
+        }
     }
 }
