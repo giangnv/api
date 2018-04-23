@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback')->name('facebook-callback');
@@ -31,18 +31,35 @@ Route::get('send_test_email', function () {
     });
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('categories', 'CategoryController');
+    Route::resource('nominations', 'NominationController');
+    Route::resource('votings', 'VotingController');
+});
 
-Route::resource('categories', 'CategoryController');
+Route::middleware(['admin', 'moderator'])->group(function () {
+    Route::resource('nominationUsers', 'NominationUserController');
+    
+    // Users
+    Route::get('users', 'UserController@index');
+    Route::delete('users', 'UserController@destroy');
+    Route::match(['put', 'patch'], 'users/{user}', 'UserController@update');
 
+    // Categories
+    Route::delete('categories', 'CategoryController@destroy');
+    Route::match(['put', 'patch'], 'categories/{category}', 'CategoryController@update');
+    Route::post('categories', 'CategoryController@store');
+    Route::get('categories/create', 'CategoryController@create')->name('categories.create');
 
-Route::resource('nominations', 'NominationController');
+    // Nominations
+    Route::delete('nominations', 'NominationController@destroy');
+    Route::match(['put', 'patch'], 'nominations/{nomination}', 'NominationController@update');
 
-Route::resource('nominationUsers', 'NominationUserController');
-
-Route::resource('roles', 'RoleController');
-
-Route::resource('settings', 'SettingController');
+    Route::resource('users', 'UserController');
+    Route::middleware(['admin'])->group(function () {
+        Route::resource('roles', 'RoleController');
+        Route::resource('settings', 'SettingController');
+    });
+});
 
 Route::resource('users', 'UserController');
-
-Route::resource('votings', 'VotingController');
