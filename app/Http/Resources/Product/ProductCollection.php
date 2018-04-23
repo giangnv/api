@@ -20,7 +20,7 @@ class ProductCollection extends JsonResource
             'totalPrice' => round(1 - $this->discount / 100) * $this->price,
             'rating' => $this->reviews->count() > 0 ? round($this->reviews->sum('star') / $this->reviews->count()) : 'Not rating yet',
             'href' => [
-                'link' => route('products.show', $this->id)
+                'link' => route('api.products.show', $this->id)
             ],
             'user' => $this->user->email,
             ];

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Model\Review;
 use App\Http\Resources\ReviewCollection;
 use App\Http\Resources\ReviewResource;
@@ -92,8 +93,8 @@ class ReviewController extends Controller
      */
     public function update(Request $request, Product $product, Review $review)
     {
-        $this->ProductUserCheck($product);
-        $this->ProductReviewCheck($product, $review);
+        $this->productUserCheck($product);
+        $this->productReviewCheck($product, $review);
         $review->update($request->all());
 
         return response([
@@ -109,8 +110,8 @@ class ReviewController extends Controller
      */
     public function destroy(Product $product, Review $review)
     {
-        $this->ProductUserCheck($product);
-        $this->ProductReviewCheck($product, $review);
+        $this->productUserCheck($product);
+        $this->productReviewCheck($product, $review);
         $review->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);

@@ -21,7 +21,7 @@ class ReviewCollection extends JsonResource
             'review' => $this->review,
             'star' => $this->star,
             'href' => [
-                'link' => route('reviews.show', ['product' => $this->product->id, 'review' => $this->id]),
+                'link' => route('api.reviews.show', ['product' => $this->product->id, 'review' => $this->id]),
             ]
         ];
     }

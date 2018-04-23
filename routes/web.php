@@ -30,3 +30,6 @@ Route::get('send_test_email', function () {
         $message->to('giangnv@vnext.vn');
     });
 });
+
+
+Route::resource('categories', 'CategoryController');

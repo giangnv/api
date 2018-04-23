@@ -9,7 +9,7 @@ use App\Exceptions\ReviewNotBelongsToProductException;
 trait ReviewTrait
 {
 
-    protected function ProductReviewCheck(Product $product, Review $review)
+    protected function productReviewCheck(Product $product, Review $review)
     {
         if ($product->reviews()->find($review)->isEmpty()) {
             throw new ReviewNotBelongsToProductException;

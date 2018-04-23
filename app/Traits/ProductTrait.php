@@ -15,7 +15,7 @@ trait ProductTrait
      * @param  \App\Model\Product  $product
      * @throw ProductNotBelongsToUserException
      */
-    protected function ProductUserCheck($product)
+    protected function productUserCheck($product)
     {
         if (Auth::id() !== $product->user_id) {
             throw new ProductNotBelongsToUserException;

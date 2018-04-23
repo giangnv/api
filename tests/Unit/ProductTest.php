@@ -44,7 +44,8 @@ class ProductTest extends TestCase
 
     public function testProductAll()
     {
-        $response = $this->get(route('products.index'));
+        $response = $this->get(route('api.products.index'));
+        // dd(route('api.products.index'));
         $response->assertStatus(200);
     }
 
@@ -52,7 +53,7 @@ class ProductTest extends TestCase
     {
         $response = $this->json(
             'POST',
-            route('products.index'),
+            route('api.products.store'),
             [
                 'name' => 'New Product',
                 'description' => 'This is a new product',
@@ -75,7 +76,7 @@ class ProductTest extends TestCase
     {
         $response = $this->json(
             'PUT',
-            route('products.update', 1),
+            route('api.products.update', 1),
             [
                 'name' => 'New Product updated',
                 'description' => 'Updated description...',
@@ -97,7 +98,7 @@ class ProductTest extends TestCase
     {
         $response = $this->json(
             'DELETE',
-            route('products.destroy', 1)
+            route('api.products.destroy', 1)
         );
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
@@ -109,7 +110,7 @@ class ProductTest extends TestCase
     {
         $response = $this->json(
             'POST',
-            route('products.index'),
+            route('api.products.index'),
             [
                 'name' => 'Heello',
                 'description' => 'This is a test',
@@ -127,7 +128,7 @@ class ProductTest extends TestCase
     {
         $response = $this->json(
             'PUT',
-            route('products.update', 2),
+            route('api.products.update', 2),
             [
                 'name' => 'New Product updated',
                 'description' => 'Updated description...',
@@ -146,7 +147,7 @@ class ProductTest extends TestCase
     {
         $response = $this->json(
             'DELETE',
-            route('products.update', 2)
+            route('api.products.update', 2)
         );
 
         $response->assertStatus(Response::HTTP_OK);

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Model\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
@@ -100,7 +101,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $this->ProductUserCheck($product);
+        $this->productUserCheck($product);
 
         $request['detail'] = $request->description;
         unset($request['description']);
@@ -122,7 +123,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $this->ProductUserCheck($product);
+        $this->productUserCheck($product);
 
         $product->delete();
 
