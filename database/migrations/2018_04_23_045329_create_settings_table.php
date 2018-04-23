@@ -19,6 +19,8 @@ class CreateSettingsTable extends Migration
             $table->datetime('nomination_end_date');
             $table->datetime('voting_start_date');
             $table->datetime('voting_end_date');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

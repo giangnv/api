@@ -13,18 +13,6 @@ class AddRoleToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
         /**
          * Add role to users table
          * Default value: 4 - Voter
@@ -36,5 +24,15 @@ class AddRoleToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->integer('role_id')->default(4);
         });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        //
     }
 }
